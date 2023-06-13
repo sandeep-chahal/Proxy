@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const ytdl = require('ytdl-core');
 const request = require("request");
 
 // Set up a proxy route for the YouTube page
@@ -15,18 +16,12 @@ app.get("/watch", (req, res) => {
 	if (!videoUrl) {
 		return res.status(400).send("Please provide a video URL");
 	}
+res.header('Content-Type', 'video/mp4');
 
-	// Stream the video from the URL
-	const stream = request(videoUrl);
-	stream.on("error", (err) => {
-		console.error(`Error streaming video: ${err.message}`);
-		res.status(500).send(`Error streaming video: ${err.message}`);
-	});
-	stream.on("end", () => {
-		console.log("Video streaming ended");
-		res.end();
-	});
-	stream.pipe(res);
+  ytdl(videoUrl, {
+    format: 'mp4',
+    quality: 'highest'
+  }).pipe(res);
 });
 
 // Start the server
