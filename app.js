@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const ytdl = require('ytdl-core');
 const request = require("request");
+const puppeteer = require('puppeteer');
+const { Readable } = require('stream');
+
 
 // Set up a proxy route for the YouTube page
 app.get("/", (req, res) => {
@@ -23,6 +26,48 @@ res.header('Content-Type', 'video/mp4');
     quality: 'highest'
   }).pipe(res);
 });
+app.use("*",(req,res)=>{
+   const url = req.query.url;
+
+  // Launch Puppeteer browser
+  const browser = await puppeteer.launch({
+    args: [
+      '--disable-dev-shm-usage',
+      '--no-sandbox',
+      '--disable-setuid-sandbox'
+    ]
+  });
+
+  const page = await browser.newPage();
+
+  try {
+    // Navigate to requested URL
+    await page.goto(url, { waitUntil: 'networkidle2' });
+
+    // Create readable stream from page content
+    const stream = new Readable({
+      read() {}
+    });
+    stream.push(await page.content());
+    stream.push(null);
+
+    // Set response headers
+    res.set({
+      'Content-Type': 'text/html; charset=UTF-8',
+      'Transfer-Encoding': 'chunked'
+    });
+
+    // Stream content to client
+    stream.pipe(res);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Something went wrong!');
+  } finally {
+    // Close browser
+    await browser.close();
+  }
+
+})
 
 // Start the server
 const port = process.env.PORT || 3000;
