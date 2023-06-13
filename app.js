@@ -27,7 +27,9 @@ res.header('Content-Type', 'video/mp4');
   }).pipe(res);
 });
 app.use("*",(req,res)=>{
-   const url = req.query.url;
+   let url = req.path;
+   if(!url.startWith("http"))
+       url = "https://www.youtube.com/"+url;
 
   // Launch Puppeteer browser
   const browser = await puppeteer.launch({
