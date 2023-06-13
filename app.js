@@ -4,7 +4,7 @@ const ytdl = require('ytdl-core');
 const request = require("request");
 
 // Set up a proxy route for the YouTube page
-app.get("/youtube", (req, res) => {
+app.get("/", (req, res) => {
 	// Send a request to the YouTube website
 	const url = "https://www.youtube.com";
 	req.pipe(request(url)).pipe(res);
