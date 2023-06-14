@@ -6,9 +6,14 @@ const puppeteer = require("puppeteer");
 const { Readable } = require("stream");
 
 // Set up a proxy route for the YouTube page
-app.get("/", (req, res) => {
+app.get("/youtube", (req, res) => {
 	// Send a request to the YouTube website
 	const url = "https://www.youtube.com";
+	req.pipe(request(url)).pipe(res);
+});
+app.get("/yt_search", (req, res) => {
+	// Send a request to the YouTube website
+	const url = "https://www.youtube.com/results?search_query=" + req.query.q;
 	req.pipe(request(url)).pipe(res);
 });
 app.get("/", (req, res) => {
