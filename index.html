@@ -8,6 +8,8 @@
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<link rel="apple-touch-icon" href="icon.png" />
 		<link rel="manifest" href="/manifest.json" />
+		<link rel="share-target" href="/" />
+
 		<title>SandsProxy</title>
 	</head>
 	<body>
@@ -16,8 +18,16 @@
 		<input type="text" placeholder="Enter url or search videos" />
 		<button onclick="search()">Go!</button>
 		<script>
+			navigator.share.addEventListener("share", (event) => {
+				const url = event.data.url;
+				parseURL(url);
+			});
 			function search() {
 				const value = document.querySelector("input").value;
+				parseURL(value);
+			}
+
+			function parseURL(value) {
 				if (value.startsWith("http")) {
 					const videoId = value.split("v=")[1].split("&")[0];
 					// alert(videoId);
