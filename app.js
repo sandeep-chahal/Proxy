@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
 	const url = "https://www.youtube.com";
 	req.pipe(request(url)).pipe(res);
 });
-app.get("/search", (req, res) => {
+app.get("/", (req, res) => {
 	// Send a request to the YouTube website
 	// const url = "https://www.youtube.com";
 	// req.pipe(request(url)).pipe(res);
@@ -72,7 +72,7 @@ app.get("/watch", async (req, res) => {
 	}
 });
 
-app.use("/", async (req, res) => {
+app.use("/youtube", async (req, res) => {
 	let url = req.path;
 	console.log(url);
 	if (!url.startsWith("http")) url = "https://www.youtube.com/" + url;
