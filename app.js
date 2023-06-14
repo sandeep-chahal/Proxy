@@ -37,8 +37,13 @@ app.get("/", (req, res) => {
 // 		quality: "highest",
 // 	}).pipe(res);
 // });
-app.get("/watch", async (req, res) => {
+app.get("/watch", (req, res) => {
+	res.sendFile(__dirname + "/watch.html");
+});
+app.get("/getUrl", async (req, res) => {
 	const videoUrl = "https://www.youtube.com/watch?v=" + req.query.v;
+	console.log("😂".repeat(10));
+	console.log(req.query.v);
 
 	if (!videoUrl) {
 		return res.status(400).send("Please provide a video URL");
@@ -46,8 +51,51 @@ app.get("/watch", async (req, res) => {
 
 	try {
 		const info = await ytdl.getInfo(videoUrl);
-		const format = ytdl.chooseFormat(info.formats, { quality: "highest" });
+		// let chosenQuality =
+		// 	info.formats.find((v) => {
+		// 		if (v.qualityLabel === "720p" && v.hasVideo && v.hasAudio) {
+		// 			return v.quality;
+		// 		} else {
+		// 			null;
+		// 		}
+		// 	}) || "highest";
 
+		// console.log(chosenQuality);
+		let format = ytdl.chooseFormat(info.formats, {
+			quality: "highest",
+		});
+		// console.log(format);
+		res.json(format);
+	} catch (err) {
+		console.error(err);
+		res.status(500).send("An error occurred while streaming the video");
+	}
+});
+app.get("/stream", async (req, res) => {
+	const videoUrl = "https://www.youtube.com/watch?v=" + req.query.v;
+	console.log("😂".repeat(10));
+	console.log(req.query.v);
+
+	if (!videoUrl) {
+		return res.status(400).send("Please provide a video URL");
+	}
+
+	try {
+		const info = await ytdl.getInfo(videoUrl);
+		// let chosenQuality =
+		// 	info.formats.find((v) => {
+		// 		if (v.qualityLabel === "720p" && v.hasVideo && v.hasAudio) {
+		// 			return v.quality;
+		// 		} else {
+		// 			null;
+		// 		}
+		// 	}) || "highest";
+
+		// console.log(chosenQuality);
+		let format = ytdl.chooseFormat(info.formats, {
+			quality: "highest",
+		});
+		// console.log(format);
 		if (!format) {
 			return res.status(400).send("Could not find suitable video format");
 		}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<link rel="apple-touch-icon" href="icon.png" />
+		<!-- <link rel="manifest" href="/manifest.json" /> -->
+		<link rel="share-target" href="/" />
+		<link href="https://vjs.zencdn.net/8.3.0/video-js.css" rel="stylesheet" />
+		<script src="https://vjs.zencdn.net/8.3.0/video.min.js"></script>
+
+		<title>SandsProxy</title>
+	</head>
+	<body>
+		<video
+			id="my-video"
+			class="video-js"
+			controls
+			preload="auto"
+			width="1280"
+			height="720"
+			data-setup="{}"
+		>
+			<source id="src1" src="" type="video/mp4" />
+			<p class="vjs-no-js">
+				To view this video please enable JavaScript, and consider upgrading to a web browser that
+				<a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+			</p>
+		</video>
+
+		<button id="btn">Switch Source</button>
+
+		<script>
+			const id = window.location.href.split("watch?v=")[1].split("&")[0];
+			document.querySelector("#src1").src = "/stream?v=" + id;
+			// const btn = document.querySelector("#btn");
+			// const DoYourThing = async (e) => {
+			// 	const perf = localStorage.getItem("perf") || "0";
+			// 	if (perf === "0") {
+			// 		const quality = await (await fetch("/getUrl?v=" + id)).json();
+			// 		console.log(quality);
+			// 		document.querySelector("#src1").type = quality.mimeType;
+			// 		document.querySelector("#src1").src = quality.url;
+			// 		if (e) localStorage.setItem("perf", "1");
+			// 	} else {
+			// 		document.querySelector("#src1").src = "/stream?v=" + id;
+			// 		if (e) localStorage.setItem("perf", "0");
+			// 	}
+			// };
+			// DoYourThing();
+			// btn.addEventListener("click", DoYourThing);
+		</script>
+	</body>
+</html>
