@@ -15,6 +15,7 @@
 		<title>SandsProxy</title>
 	</head>
 	<body>
+		<a href="/">Go Home!</a>
 		<video
 			id="my-video"
 			class="video-js"
@@ -32,26 +33,20 @@
 		</video>
 
 		<button id="btn">Switch Source</button>
+		<div id="vids"></div>
 
 		<script>
 			const id = window.location.href.split("watch?v=")[1].split("&")[0];
 			document.querySelector("#src1").src = "/stream?v=" + id;
-			// const btn = document.querySelector("#btn");
+			const vids = document.querySelector("#vids");
 			// const DoYourThing = async (e) => {
-			// 	const perf = localStorage.getItem("perf") || "0";
-			// 	if (perf === "0") {
-			// 		const quality = await (await fetch("/getUrl?v=" + id)).json();
-			// 		console.log(quality);
-			// 		document.querySelector("#src1").type = quality.mimeType;
-			// 		document.querySelector("#src1").src = quality.url;
-			// 		if (e) localStorage.setItem("perf", "1");
-			// 	} else {
-			// 		document.querySelector("#src1").src = "/stream?v=" + id;
-			// 		if (e) localStorage.setItem("perf", "0");
-			// 	}
+			// 	const videos = await (await fetch("/getUrl?v=" + id)).json();
+			// 	console.log(videos);
+			// 	vids.innerHTML = videos.map((v) => {
+			// 		return;
+			// 	};
 			// };
 			// DoYourThing();
-			// btn.addEventListener("click", DoYourThing);
 		</script>
 	</body>
 </html>

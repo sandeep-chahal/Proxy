@@ -51,6 +51,7 @@ app.get("/getUrl", async (req, res) => {
 
 	try {
 		const info = await ytdl.getInfo(videoUrl);
+		res.json(info.related_videos);
 		// let chosenQuality =
 		// 	info.formats.find((v) => {
 		// 		if (v.qualityLabel === "720p" && v.hasVideo && v.hasAudio) {
@@ -61,11 +62,6 @@ app.get("/getUrl", async (req, res) => {
 		// 	}) || "highest";
 
 		// console.log(chosenQuality);
-		let format = ytdl.chooseFormat(info.formats, {
-			quality: "highest",
-		});
-		// console.log(format);
-		res.json(format);
 	} catch (err) {
 		console.error(err);
 		res.status(500).send("An error occurred while streaming the video");
