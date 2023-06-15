@@ -21,8 +21,6 @@
 			class="video-js"
 			controls
 			preload="auto"
-			width="1280"
-			height="720"
 			data-setup="{}"
 		>
 			<source id="src1" src="" type="video/mp4" />
@@ -39,14 +37,10 @@
 			const id = window.location.href.split("watch?v=")[1].split("&")[0];
 			document.querySelector("#src1").src = "/stream?v=" + id;
 			const vids = document.querySelector("#vids");
-			// const DoYourThing = async (e) => {
-			// 	const videos = await (await fetch("/getUrl?v=" + id)).json();
-			// 	console.log(videos);
-			// 	vids.innerHTML = videos.map((v) => {
-			// 		return;
-			// 	};
-			// };
-			// DoYourThing();
+			 const DoYourThing = async (e) => {
+	
+			};
+			 //DoYourThing();
 		</script>
 	</body>
 </html>
