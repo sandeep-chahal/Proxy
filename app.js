@@ -51,7 +51,10 @@ app.get("/getUrl", async (req, res) => {
 
 	try {
 		const info = await ytdl.getInfo(videoUrl);
-		res.json(info.related_videos);
+		let format = ytdl.chooseFormat(info.formats, {
+			quality: "highest",
+		});
+res.json(format);
 		// let chosenQuality =
 		// 	info.formats.find((v) => {
 		// 		if (v.qualityLabel === "720p" && v.hasVideo && v.hasAudio) {
