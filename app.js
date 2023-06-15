@@ -52,7 +52,7 @@ app.get("/getUrl", async (req, res) => {
 	try {
 		const info = await ytdl.getInfo(videoUrl);
 		let format = ytdl.chooseFormat(info.formats, {
-			quality: "highest",
+			quality: "highestAudio",
 		});
 res.json(format);
 		// let chosenQuality =
