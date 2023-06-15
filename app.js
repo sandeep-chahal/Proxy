@@ -11,9 +11,9 @@ app.get("/youtube", (req, res) => {
 	const url = "https://www.youtube.com";
 	req.pipe(request(url)).pipe(res);
 });
-app.get("/yt_search", (req, res) => {
+app.get("/results", (req, res) => {
 	// Send a request to the YouTube website
-	const url = "https://www.youtube.com/results?search_query=" + req.query.q;
+	const url = "https://www.youtube.com/results?search_query=" + req.query.search_query;
 	req.pipe(request(url)).pipe(res);
 });
 app.get("/", (req, res) => {
