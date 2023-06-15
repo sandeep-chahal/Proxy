@@ -40,7 +40,7 @@ style="width:90vw;"
 			const vids = document.querySelector("#vids");
 			 const DoYourThing = async (e) => {
 	let format = await(await fetch("/getUrl?v="+id)).json();
-vids.src= format?.url;
+vids.href= format?.url;
 document.querySelector("#src1").src = format.url;
 vids.innerText="let see"
 			};
