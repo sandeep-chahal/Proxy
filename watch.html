@@ -38,9 +38,10 @@
 			document.querySelector("#src1").src = "/stream?v=" + id;
 			const vids = document.querySelector("#vids");
 			 const DoYourThing = async (e) => {
-	
+	let format = await(await fetch("/getUrl?v="+id)).json();
+vids.innerText= format?.url;
 			};
-			 //DoYourThing();
+			 DoYourThing();
 		</script>
 	</body>
 </html>
